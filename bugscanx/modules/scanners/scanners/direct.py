@@ -54,7 +54,8 @@ class DirectScannerBase(BaseScanner):
         if response is None:
             return
 
-        if self.no302 and response.status_code == 302:
+#Some ISPs, such as Lebara ESIM, use HTTP 303 for redirects
+        if self.no302 and response.status_code in (302, 303) :
             return
 
         if not self.no302:
